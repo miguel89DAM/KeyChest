@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ToolBarStyle" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/topBar</item>
+        <item name="actionMenuTextColor">@color/white</item>
+        <item name="android:background">@color/primary</item>
+        <item name="android:src">@drawable/iconokeychest3</item>
+    </style>
+
+</resources>
