@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">KeyChest</string>
+    <string name="signIn">SIGN IN</string>
+    <string name="signUp">SIGN UP</string>
+    <string name="userEmail">Email</string>
+    <string name="userPassword">Password</string>
 </resources>

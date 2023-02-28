@@ -31,8 +31,8 @@ public class IntroActivity extends AppCompatActivity {
         TimerTask task = new TimerTask() {
             public void run() {
                 // Arrancamos la siguiente actividad
-                Intent mainIntent = new Intent().setClass(getApplicationContext(), MainActivity.class);
-                startActivity(mainIntent);
+                Intent loginIntent = new Intent().setClass(getApplicationContext(), LoginActivity.class);
+                startActivity(loginIntent);
                 // Cerramos esta actividad para que el usuario no pueda volver a ella mediante botón de volver atras
                 finish();
             }
