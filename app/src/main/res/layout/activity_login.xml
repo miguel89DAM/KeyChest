@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
     android:background="@drawable/gradientbackground">
-
     <ImageView
         android:id="@+id/loginLogo"
         android:layout_width="300dp"
@@ -24,6 +23,11 @@
         android:hint="@string/userEmail"
         android:padding="16dp"
         android:layout_margin="16dp"
+        android:fontFamily="@font/font"
+        android:drawableStart="@drawable/custom_email_icon"
+        android:drawablePadding="16dp"
+        android:inputType="text"
+        android:background="@drawable/custom_input"
         app:layout_constraintTop_toBottomOf="@+id/loginLogo"
         app:layout_constraintBottom_toTopOf="@+id/userPassword"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,29 +37,58 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/userPassword"
+        android:inputType="textPassword"
         android:padding="16dp"
         android:layout_margin="16dp"
+        android:fontFamily="@font/font"
+        android:drawableStart="@drawable/custom_password_icon"
+        android:drawablePadding="16dp"
+        android:background="@drawable/custom_input"
         app:layout_constraintTop_toBottomOf="@+id/userId"
         app:layout_constraintBottom_toTopOf="@+id/btnSignIn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
     <Button
+        style="@style/BtnStyle"
         android:id="@+id/btnSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/signIn"
-        android:background="@color/buttons"
+        android:background="@drawable/btnshape"
         app:layout_constraintTop_toBottomOf="@+id/userPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/txtSignUp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
-    <Button
-        android:id="@+id/btnSingUp"
+    <TextView
+        style="@style/normalTextStyle"
+        android:id="@+id/txtSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/signUp"
-        android:background="@color/buttons"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/loginLogo"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:text="@string/NotRegister"
+        android:padding="16dp"
+        android:layout_margin="16dp"
+        android:textColor="@color/custom_textview"
+        android:textIsSelectable="true"
+        app:layout_constraintTop_toBottomOf="@+id/btnSignIn"
+        app:layout_constraintBottom_toTopOf="@+id/txtForgotPswd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <requestFocus/>
+    </TextView>
+    <TextView
+        style="@style/normalTextStyle"
+        android:id="@+id/txtForgotPswd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/forgotPassword"
+        android:padding="16dp"
+        android:layout_margin="16dp"
+        android:textColor="@color/custom_textview"
+        android:textIsSelectable="true"
+        app:layout_constraintTop_toBottomOf="@+id/txtSignUp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <requestFocus/>
+    </TextView>
 </androidx.constraintlayout.widget.ConstraintLayout>

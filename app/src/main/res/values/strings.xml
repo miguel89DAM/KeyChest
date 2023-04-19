@@ -4,4 +4,10 @@
     <string name="signUp">SIGN UP</string>
     <string name="userEmail">Email</string>
     <string name="userPassword">Password</string>
+    <string name="verifyPassword">Verify your password</string>
+    <string name="forgotPassword">Forgot your password?</string>
+    <string name="txtRegister">Register</string>
+    <string name="conditions">Accept terms of conditions</string>
+    <string name="NotRegister">Don\'t have an account?</string>
+    <string name="MessageToRegister">Please check your email to verify your account</string>
 </resources>
