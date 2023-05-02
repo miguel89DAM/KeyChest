@@ -11,4 +11,5 @@
     <color name="secondary">#77FFB0</color>
     <color name="topBar">#1E88E4</color>
     <color name="buttons">#FBCF4B</color>
+    <color name="toolbar">#9219FFFF</color>
 </resources>

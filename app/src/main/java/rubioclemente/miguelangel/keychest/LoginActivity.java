@@ -39,7 +39,9 @@ public class LoginActivity extends AppCompatActivity {
                     User userBd = user;
                     //Si la respuesta es correcta derivamos al MainActivity
                     if(userBd != null){
+                        userBd.setPasswd(txtPsswd.getText().toString());
                         Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                        i.putExtra("USER",userBd);
                         startActivity(i);
                     }
                     return user;

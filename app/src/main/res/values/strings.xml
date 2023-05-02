@@ -10,4 +10,10 @@
     <string name="conditions">Accept terms of conditions</string>
     <string name="NotRegister">Don\'t have an account?</string>
     <string name="MessageToRegister">Please check your email to verify your account</string>
+    <string name="newInput">New</string>
+    <string name="categorySpinner">Select category</string>
+    <string name="nameDataView">Name:</string>
+    <string name="nameDataDescriptionView">Description:</string>
+    <string name="passwordDataView">Password:</string>
+    <string name="sendData">SUBMIT</string>
 </resources>

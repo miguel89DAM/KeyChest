@@ -1,16 +1,65 @@
 package rubioclemente.miguelangel.keychest;
 
-public class User {
-    private int id;
-    private String email, passwd;
+import android.os.Parcel;
+import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
+public class User implements Parcelable {
+
+    //ATRIBUTES
+    private int id;
+    private String email, passwd,token;
+
+
+    //CONSTRUCTORS
     public User(){
 
+    }
+
+    public User(String token){
+        this.token = token;
     }
     public User(String email, String password){
         this.email = email;
         this.passwd = password;
     }
+
+    protected User(Parcel in) {
+        id = in.readInt();
+        email = in.readString();
+        passwd = in.readString();
+        token = in.readString();
+    }
+
+    //PARCELABLE
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(email);
+        dest.writeString(passwd);
+        dest.writeString(token);
+    }
+
+    //GETTERS & SETTERS
     public int getId() {
         return id;
     }
@@ -27,14 +76,13 @@ public class User {
         this.email = email;
     }
 
-    /*public String getToken() {
+    public String getToken() {
         return token;
     }
 
     public void setToken(String token) {
         this.token = token;
     }
-*/
     public String getPasswd() {
         return passwd;
     }
@@ -42,6 +90,8 @@ public class User {
     public void setPasswd(String passwd) {
         this.passwd = passwd;
     }
+
+
 
 
 }

@@ -85,6 +85,7 @@ public class Utilities {
         }
         if(!userVerifyPassword.getText().toString().equals(userPswd.getText().toString())){
             userVerifyPassword.setError("Your password must be the same");
+            return false;
         }
 
         return true;

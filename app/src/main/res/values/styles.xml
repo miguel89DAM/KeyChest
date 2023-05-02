@@ -4,8 +4,11 @@
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textColorSecondary">@color/topBar</item>
         <item name="actionMenuTextColor">@color/white</item>
-        <item name="android:background">@color/primary</item>
+        <item name="android:background">@color/toolbar</item>
         <item name="android:src">@drawable/iconokeychest3</item>
+        <item name="android:layout_height">70dp</item>
+        <item name ="android:elevation">4dp</item>
+        <item name="android:fontFamily">@font/kanit_bold</item>
     </style>
     <style name="BtnStyle" parent="Theme.AppCompat">
         <item name="android:fontFamily">@font/kanit_bold</item>
@@ -24,6 +27,12 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="labelStyle" parent="Theme.AppCompat">
+        <item name="android:fontFamily">@font/font</item>
+        <item name="android:fontStyle">italic</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <style name="hintTextStyle" parent="Theme.AppCompat">
         <item name="android:fontFamily">@font/font</item>
         <item name="android:fontStyle">normal</item>
@@ -37,6 +46,19 @@
         <item name="android:textSize">48sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="recyclerStyle" parent="Theme.AppCompat">
+        <item name="android:fontFamily">@font/font</item>
+        <item name="android:fontStyle">normal</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:elevation">3dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+    </style>
+
     <style name="Body_ThemeOverlay.MaterialComponents.MaterialAlertDialog" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="materialAlertDialogBodyTextStyle">@style/BodyMaterialAlertDialog.MaterialComponents.Body.Text</item>
     </style>

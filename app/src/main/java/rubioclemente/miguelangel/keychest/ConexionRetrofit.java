@@ -1,7 +1,7 @@
 package rubioclemente.miguelangel.keychest;
 
 
-import com.google.gson.JsonObject;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,7 +20,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import retrofit2.http.Body;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public class ConexionRetrofit {
@@ -39,34 +38,38 @@ public class ConexionRetrofit {
 
     public static Retrofit getRetrofit(){
         if(retrofitInstance == null){
-            retrofitInstance= new Retrofit.Builder().client(httpsClient).baseUrl("https://192.168.1.10:3300/").addConverterFactory(GsonConverterFactory.create()).build();
+            retrofitInstance= new Retrofit.Builder().client(httpsClient).baseUrl("https://www.keychest.org:3300/").addConverterFactory(GsonConverterFactory.create()).build();
         }
         return retrofitInstance;
     }
 
     //Interfaz para acceder a la api de KeyChest.
-    public interface ServiceUsers {
+    public interface ServiceKeychest {
         //@Headers("Content-Type: application/json")
+        //Login
         @POST("/users/user")
         Call<User> getUser(@Body User user);
-
+        //Insert user
         @POST("/users/newUser")
         Call<Integer> insertUser(@Body User user);
+        //GetCategories
+        @POST("/categories")
+        Call<Category[]> getCategories(@Body User userToken);
     }
 
     //INSTANCIAR SERVICIO DE Usuarios
-    private static ServiceUsers serviceUsersInstance = null;
-    public static ServiceUsers getServiceUsers(){
-        if(serviceUsersInstance == null){
-            serviceUsersInstance=getRetrofit().create(ServiceUsers.class);
+    private static ServiceKeychest serviceKeychestInstance = null;
+    public static ServiceKeychest getServiceKeychest(){
+        if(serviceKeychestInstance == null){
+            serviceKeychestInstance =getRetrofit().create(ServiceKeychest.class);
         }
-        return serviceUsersInstance;
+        return serviceKeychestInstance;
     }
 
     public static CompletableFuture<User> getUser(User user){
 
         //Peticion a la web para extraer el usuario
-        Call<User>userRequest = getServiceUsers().getUser(user);
+        Call<User>userRequest = getServiceKeychest().getUser(user);
         CompletableFuture<User> cf = new CompletableFuture<>();
         userRequest.enqueue(new Callback<User>() {
             @Override
@@ -106,7 +109,7 @@ public class ConexionRetrofit {
     public static CompletableFuture<Integer> insertUser(User user){
 
         //Peticion a la web para extraer el usuario
-        Call<Integer>userRequest = getServiceUsers().insertUser(user);
+        Call<Integer>userRequest = getServiceKeychest().insertUser(user);
         CompletableFuture<Integer> cf = new CompletableFuture<>();
         userRequest.enqueue(new Callback<Integer>() {
             @Override
@@ -135,6 +138,46 @@ public class ConexionRetrofit {
 
             @Override
             public void onFailure(Call<Integer> call, Throwable t) {
+                System.out.println( "Error en retrofit ------------------------------------" );
+                t.getMessage();
+                cf.completeExceptionally(t);
+            }
+        });
+        return cf;
+    }
+
+    public static CompletableFuture<Category[]> getCategories(User userToken){
+
+        //Peticion a la web para extraer el usuario
+        Call<Category[]>categoriesRequest = getServiceKeychest().getCategories(userToken);
+        CompletableFuture<Category[]> cf = new CompletableFuture<>();
+        categoriesRequest.enqueue(new Callback<Category[]>() {
+            @Override
+            public void onResponse(Call<Category[]> call, Response<Category[]> response) {
+                System.out.println(call.request());
+                System.out.println( "headers----------------------------------");
+                System.out.println( response.headers().toString() );
+                System.out.println( "message----------------------------------");
+                System.out.println( response.message() );
+                System.out.println( response.body());
+                if(!response.isSuccessful()){
+                    try{
+                        String bodyErr = response.errorBody().string();
+                        JSONObject bodyObj = new JSONObject( bodyErr);
+                        String msg=bodyObj.get("msg").toString();
+                        cf.completeExceptionally(new RuntimeException(msg));
+                    }catch(IOException io){
+                        io.getMessage();
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                Category[] checkInsert = response.body();
+                cf.complete(checkInsert);
+            }
+
+            @Override
+            public void onFailure(Call<Category[]> call, Throwable t) {
                 System.out.println( "Error en retrofit ------------------------------------" );
                 t.getMessage();
                 cf.completeExceptionally(t);
