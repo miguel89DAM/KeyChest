@@ -1,6 +1,7 @@
 package rubioclemente.miguelangel.keychest;
 
 
+import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -55,6 +56,9 @@ public class ConexionRetrofit {
         //GetCategories
         @POST("/categories")
         Call<Category[]> getCategories(@Body User userToken);
+
+        @POST("/data/new")
+        Call<String> createData(@Body Data newData);
     }
 
     //INSTANCIAR SERVICIO DE Usuarios
@@ -178,6 +182,47 @@ public class ConexionRetrofit {
 
             @Override
             public void onFailure(Call<Category[]> call, Throwable t) {
+                System.out.println( "Error en retrofit ------------------------------------" );
+                t.getMessage();
+                cf.completeExceptionally(t);
+            }
+        });
+        return cf;
+    }
+
+    public static CompletableFuture<String> createData(Data newData){
+
+        //Peticion a la web para guardar datos en BD
+        Call<String>newDataRequest = getServiceKeychest().createData(newData);
+        CompletableFuture<String> cf = new CompletableFuture<>();
+        newDataRequest.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                System.out.println(call.request());
+                System.out.println( "headers----------------------------------");
+                System.out.println( response.headers().toString() );
+                System.out.println( "message----------------------------------");
+                System.out.println( response.message() );
+                System.out.println( response.body());
+                if(!response.isSuccessful()){
+                    try{
+                        String bodyErr = response.errorBody().string();
+                        JSONObject bodyObj = new JSONObject( bodyErr);
+                        String msg=bodyObj.get("msg").toString();
+                        cf.completeExceptionally(new RuntimeException(msg));
+                    }catch(IOException io){
+                        io.getMessage();
+                    } catch (JSONException e) {
+                        Log.d("ERR",e.getMessage());
+                        throw new RuntimeException(e);
+                    }
+                }
+                String responsePrueba = response.body();
+                cf.complete(responsePrueba);
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
                 System.out.println( "Error en retrofit ------------------------------------" );
                 t.getMessage();
                 cf.completeExceptionally(t);

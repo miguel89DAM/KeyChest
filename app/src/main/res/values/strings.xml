@@ -16,4 +16,7 @@
     <string name="nameDataDescriptionView">Description:</string>
     <string name="passwordDataView">Password:</string>
     <string name="sendData">SUBMIT</string>
+    <string name="genPassword">AUTOGEN</string>
+    <string name="revealPassword">REVEAL</string>
+    <string name="hidePassword">HIDE</string>
 </resources>

@@ -2,26 +2,38 @@ package rubioclemente.miguelangel.keychest;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
 
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.Parcelable;
+import android.text.InputType;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.Toast;
 
 import java.util.Arrays;
+import java.util.concurrent.CompletableFuture;
 
 public class CreateDataActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Toolbar menu;
-    Spinner spinnerCategory;
-    EditText txtNameData,txtDescriptionData,txtPasswordData;
-    Button btnDataSubmit;
+    private Spinner spinnerCategory;
+    private EditText txtNameData,txtDescriptionData,txtPasswordData;
+    private Button btnDataSubmit,btnRandomPassword;
+    private ImageButton btnRevealPassword;
     //Generamos objeto categoria que instanciaremos en la selección.
-    Category c;
+    private Category c;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,17 +47,17 @@ public class CreateDataActivity extends AppCompatActivity implements AdapterView
         txtDescriptionData =(EditText)findViewById(R.id.txtDescriptionData);
         txtPasswordData =(EditText)findViewById(R.id.txtPasswordData);
         btnDataSubmit =(Button)findViewById(R.id.btnDataSubmit);
+        btnRandomPassword =(Button)findViewById(R.id.btnRandomPassword);
+        btnRevealPassword =(ImageButton)findViewById(R.id.btnRevealPassword);
         //Recogemos usuario y categorias del parcelable procedente de MainActivity
         User user =getIntent().getParcelableExtra("USER");
         Categories categories = getIntent().getParcelableExtra("CATEGORIES");
-        //Category[] categories;
-        //Parcelable []parcelable = getIntent().getParcelableArrayExtra("CATEGORIES");
-        //categories = Arrays.copyOf(parcelable, parcelable.length, Category[].class);
+        //Generamos el desplegable con las categorias de la app.
         ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(this, R.layout.spinner_list, categories.getCategories());
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_list);
         spinnerCategory.setAdapter(spinnerArrayAdapter);
         spinnerCategory.setOnItemSelectedListener(this);
-
+        //Listener de envío de informacion al servidor
         btnDataSubmit.setOnClickListener((View v) ->{
             if(txtNameData.getText().toString().isEmpty()){
                 txtNameData.setError("The name can't be empty");
@@ -63,8 +75,42 @@ public class CreateDataActivity extends AppCompatActivity implements AdapterView
                     user,
                     c
             );
-
+            Handler handler = new Handler(Looper.getMainLooper());
+            CompletableFuture<String> cf = ConexionRetrofit.createData(data);
+            //Si la respuesta es incorrecta enviamos un mensaje con el error al usuario
+            cf.exceptionally((Throwable t)->{
+                handler.post(()-> Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show());
+                return null;
+            }).thenApplyAsync((String checkInsert)->{
+                //Si la respuesta es correcta derivamos al MainActivity
+                if(checkInsert.equals("1")){
+                    Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                    i.putExtra("USER",user);
+                    startActivity(i);
+                }
+                return checkInsert;
+            },handler::post);
             System.out.println(c.getName());
+        });
+        //Listener generacion de password aleatoria
+        btnRandomPassword.setOnClickListener((View v)->{
+            txtPasswordData.setText(Utilities.randomText());
+        });
+        //Listener de revelacion y ocultación de contraseña en el front
+        btnRevealPassword.setOnClickListener((View v)->{
+            if(btnRevealPassword.getTooltipText().toString().equals("REVEAL")){
+                Drawable imgHidePassword= ResourcesCompat.getDrawable(getResources(),R.drawable.baseline_visibility_off_24,null);
+                btnRevealPassword.setImageDrawable(imgHidePassword);
+                txtPasswordData.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                btnRevealPassword.setTooltipText("HIDE");
+            }else{
+                Drawable imgRevealPassword= ResourcesCompat.getDrawable(getResources(),R.drawable.baseline_remove_red_eye_24,null);
+                btnRevealPassword.setTooltipText("REVEAL");
+                btnRevealPassword.setImageDrawable(imgRevealPassword);
+                txtPasswordData.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
+            }
+
         });
     }
 

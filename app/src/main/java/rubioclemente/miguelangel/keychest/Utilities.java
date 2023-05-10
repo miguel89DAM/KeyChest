@@ -2,8 +2,10 @@ package rubioclemente.miguelangel.keychest;
 
 import android.widget.EditText;
 
+import java.nio.charset.Charset;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -89,5 +91,18 @@ public class Utilities {
         }
 
         return true;
+    }
+    public static String randomText() {
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        Random random = new Random();
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 60) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+
+        return generatedString;
     }
 }

@@ -71,7 +71,7 @@
     <TextView
         style="@style/labelStyle"
         app:layout_constraintTop_toBottomOf="@+id/txtNameDataView"
-        app:layout_constraintBottom_toTopOf="@+id/txtPasswordDataView"
+        app:layout_constraintBottom_toTopOf="@+id/txtPasswordData"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/txtDescriptionData"
         android:id="@+id/txtDescriptionDataView"
@@ -85,39 +85,57 @@
         app:layout_constraintStart_toEndOf="@+id/txtDescriptionDataView"
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/txtDescriptionData"
+        android:hint="@string/nameDataDescriptionView"
         android:layout_width="200dp"
         android:layout_height="48dp"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
         android:background="@drawable/custom_input"
         android:inputType="text"
-        android:hint="@string/nameDataDescriptionView"/>
+        />
 
-    <TextView
-        style="@style/labelStyle"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescriptionDataView"
-        app:layout_constraintBottom_toTopOf="@+id/btnDataSubmit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/txtPasswordData"
-        android:id="@+id/txtPasswordDataView"
-        android:layout_width="120dp"
-        android:layout_height="48dp"
-        android:text="@string/passwordDataView" />
     <EditText
         style="@style/normalTextStyle"
         app:layout_constraintTop_toBottomOf="@+id/txtDescriptionData"
         app:layout_constraintBottom_toTopOf="@+id/btnDataSubmit"
-        app:layout_constraintStart_toEndOf="@+id/txtPasswordDataView"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnRandomPassword"
         android:id="@+id/txtPasswordData"
-        android:layout_width="200dp"
+        android:layout_width="140dp"
         android:layout_height="48dp"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
+        android:hint="@string/userPassword"
+        android:textColorHint="@android:color/darker_gray"
         android:background="@drawable/custom_input"
-        android:inputType="textPassword"
-        android:hint="@string/passwordDataView"/>
+        android:inputType="textPassword"/>
 
+    <Button
+        style="@style/BtnStyle"
+        app:layout_constraintTop_toBottomOf="@+id/txtDescriptionData"
+        app:layout_constraintBottom_toTopOf="@+id/btnDataSubmit"
+        app:layout_constraintStart_toEndOf="@+id/txtPasswordData"
+        app:layout_constraintEnd_toStartOf="@+id/btnRevealPassword"
+        android:id="@+id/btnRandomPassword"
+        android:layout_width="85dp"
+        android:layout_height="50dp"
+        android:text="@string/genPassword"
+        android:textSize="14sp"
+        android:background="@drawable/btnshape"/>
+
+    <ImageButton
+        app:layout_constraintTop_toBottomOf="@+id/txtDescriptionData"
+        app:layout_constraintBottom_toTopOf="@+id/btnDataSubmit"
+        app:layout_constraintStart_toEndOf="@+id/btnRandomPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/btnRevealPassword"
+        android:tooltipText="@string/revealPassword"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:textSize="14sp"
+        android:background="@drawable/btnshape"
+        android:src="@drawable/baseline_remove_red_eye_24"
+        android:foregroundGravity="center"/>
     <Button
         style="@style/BtnStyle"
         app:layout_constraintTop_toBottomOf="@+id/txtPasswordData"
