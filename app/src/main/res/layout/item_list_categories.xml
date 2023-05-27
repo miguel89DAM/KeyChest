@@ -7,6 +7,8 @@
         android:layout_width="match_parent"
         android:layout_weight="3"
         android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_margin="16dp"
         style="@style/recyclerStyle"/>
     <TextView
         android:id="@+id/txtnumRegisterUser"
@@ -15,6 +17,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:textSize="18sp"
+        android:layout_margin="16dp"
         android:background="@drawable/countdatauser_shape"
         style="@style/TitleTextStyle"/>
 

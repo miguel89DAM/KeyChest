@@ -12,13 +12,12 @@ import java.util.regex.Pattern;
 import javax.crypto.Cipher;
 
 public class Utilities {
-
+    //Patron para validar email
+    private static final Pattern patternEmail = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+    //Patron para validar contraseña
+    private static final Pattern patternPswd = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,25}$");
     public static boolean validarDatos(EditText userId, EditText userPswd) {
-        //Patron para validar email
-        Pattern patternEmail = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-        //Patron para validar contraseña
-        Pattern patternPswd = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,25}$");
         Matcher matchEmail =patternEmail.matcher(userId.getText().toString());
         Matcher matchPswd =patternPswd.matcher(userPswd.getText().toString());
         if (userId.getText().toString().isEmpty()) {
@@ -50,11 +49,6 @@ public class Utilities {
     }
 
     public static boolean validarDatos(EditText userId, EditText userPswd, EditText userVerifyPassword) {
-        //Patron para validar email
-        Pattern patternEmail = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-        //Patron para validar contraseña
-        Pattern patternPswd = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,25}$");
         Matcher matchEmail =patternEmail.matcher(userId.getText().toString());
         Matcher matchPswd =patternPswd.matcher(userPswd.getText().toString());
         if (userId.getText().toString().isEmpty()) {
@@ -92,10 +86,25 @@ public class Utilities {
 
         return true;
     }
+
+    public static boolean validarEmail(EditText userEmail){
+        Matcher matchEmail =patternEmail.matcher(userEmail.getText().toString());
+        if (userEmail.getText().toString().isEmpty()) {
+            userEmail.setError("Your email is empty");
+            return false;
+        }
+        if(!matchEmail.find()){
+            userEmail.setError("Your email is incorrect");
+            return false;
+        }
+        return true;
+    }
+
+
     public static String randomText() {
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
-        int targetStringLength = 10;
+        int targetStringLength = 14;
         Random random = new Random();
         String generatedString = random.ints(leftLimit, rightLimit + 1)
                 .filter(i -> (i <= 57 || i >= 60) && (i <= 90 || i >= 97))

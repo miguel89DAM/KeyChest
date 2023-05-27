@@ -6,19 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".CreateDataActivity"
     android:background="@drawable/gradientbackground">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/menu"
-        android:layout_width="match_parent"
-        style="@style/ToolBarStyle"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="end"
-            android:src="@drawable/iconokeychestblack"/>
-    </androidx.appcompat.widget.Toolbar>
+    <include layout="@layout/app_toolbar"/>
 
     <TextView
         style="@style/labelStyle"
@@ -26,14 +14,15 @@
         android:layout_height="48dp"
         android:text="@string/categorySpinner"
         android:id="@+id/txtCategoryView"
+        android:layout_margin="16dp"
         app:layout_constraintBottom_toTopOf="@+id/txtNameDataView"
         app:layout_constraintEnd_toStartOf="@+id/category_spinner"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/menu" />
+        app:layout_constraintTop_toBottomOf="@+id/appbar" />
 
     <Spinner
         style="@style/labelStyle"
-        app:layout_constraintTop_toBottomOf="@+id/menu"
+        app:layout_constraintTop_toBottomOf="@+id/appbar"
         app:layout_constraintBottom_toTopOf="@+id/txtNameData"
         app:layout_constraintStart_toEndOf="@+id/txtCategoryView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,6 +41,7 @@
         android:id="@+id/txtNameDataView"
         android:layout_width="120dp"
         android:layout_height="48dp"
+        android:layout_margin="16dp"
         android:text="@string/nameDataView" />
     <EditText
         style="@style/normalTextStyle"
@@ -77,6 +67,7 @@
         android:id="@+id/txtDescriptionDataView"
         android:layout_width="120dp"
         android:layout_height="48dp"
+        android:layout_margin="16dp"
         android:text="@string/nameDataDescriptionView" />
     <EditText
         style="@style/normalTextStyle"
@@ -106,7 +97,6 @@
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
         android:hint="@string/userPassword"
-        android:textColorHint="@android:color/darker_gray"
         android:background="@drawable/custom_input"
         android:inputType="textPassword"/>
 

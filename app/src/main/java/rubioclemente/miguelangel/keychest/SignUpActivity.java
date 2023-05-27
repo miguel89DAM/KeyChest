@@ -1,7 +1,6 @@
 package rubioclemente.miguelangel.keychest;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -15,16 +14,15 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 import java.util.concurrent.CompletableFuture;
+import rubioclemente.miguelangel.keychest.apiservices.ConexionRetrofit;
+import rubioclemente.miguelangel.keychest.model.User;
 
 public class SignUpActivity extends AppCompatActivity {
-    EditText txtEmail,txtPassword,txtPasswordVerify;
-    CheckBox checkConditions;
-    Button btnSignUp;
-    TextView txtMessageRegister;
+    private EditText txtEmail,txtPassword,txtPasswordVerify;
+    private CheckBox checkConditions;
+    private Button btnSignUp;
+    private TextView txtMessageRegister;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

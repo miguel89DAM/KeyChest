@@ -1,8 +1,7 @@
-package rubioclemente.miguelangel.keychest;
+package rubioclemente.miguelangel.keychest.apiservices;
 
 
 import android.util.Log;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,7 +20,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
+import retrofit2.http.HTTP;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import rubioclemente.miguelangel.keychest.apiservices.ConexionHttps;
+import rubioclemente.miguelangel.keychest.model.Category;
+import rubioclemente.miguelangel.keychest.model.Data;
+import rubioclemente.miguelangel.keychest.model.User;
 
 public class ConexionRetrofit {
 
@@ -53,12 +59,24 @@ public class ConexionRetrofit {
         //Insert user
         @POST("/users/newUser")
         Call<Integer> insertUser(@Body User user);
+
+        @POST("/users/recovery")
+        Call<String> recoveryUser(@Body User user);
         //GetCategories
         @POST("/categories")
         Call<Category[]> getCategories(@Body User userToken);
 
         @POST("/data/new")
         Call<String> createData(@Body Data newData);
+
+        @POST("/data/getData")
+        Call<Data[]> getData(@Body Data data);
+
+        @HTTP(method = "DELETE", path = "/data/deleteData", hasBody = true)
+        Call<String> deleteData(@Body Data data);
+
+        @PUT("/data/updateData")
+        Call<String> updateData(@Body Data data);
     }
 
     //INSTANCIAR SERVICIO DE Usuarios
@@ -150,6 +168,47 @@ public class ConexionRetrofit {
         return cf;
     }
 
+    public static CompletableFuture<String> recoveryUser(User user){
+
+        //Peticion a la web para guardar datos en BD
+        Call<String>recoveryUserRequest = getServiceKeychest().recoveryUser(user);
+        CompletableFuture<String> cf = new CompletableFuture<>();
+        recoveryUserRequest.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                System.out.println(call.request());
+                System.out.println( "headers----------------------------------");
+                System.out.println( response.headers().toString() );
+                System.out.println( "message----------------------------------");
+                System.out.println( response.message() );
+                System.out.println( response.body());
+                if(!response.isSuccessful()){
+                    try{
+                        String bodyErr = response.errorBody().string();
+                        JSONObject bodyObj = new JSONObject( bodyErr);
+                        String msg=bodyObj.get("msg").toString();
+                        cf.completeExceptionally(new RuntimeException(msg));
+                    }catch(IOException io){
+                        io.getMessage();
+                    } catch (JSONException e) {
+                        Log.d("ERR",e.getMessage());
+                        throw new RuntimeException(e);
+                    }
+                }
+                String responsePrueba = response.body();
+                cf.complete(responsePrueba);
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                System.out.println( "Error en retrofit ------------------------------------" );
+                t.getMessage();
+                cf.completeExceptionally(t);
+            }
+        });
+        return cf;
+    }
+
     public static CompletableFuture<Category[]> getCategories(User userToken){
 
         //Peticion a la web para extraer el usuario
@@ -196,6 +255,129 @@ public class ConexionRetrofit {
         Call<String>newDataRequest = getServiceKeychest().createData(newData);
         CompletableFuture<String> cf = new CompletableFuture<>();
         newDataRequest.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                System.out.println(call.request());
+                System.out.println( "headers----------------------------------");
+                System.out.println( response.headers().toString() );
+                System.out.println( "message----------------------------------");
+                System.out.println( response.message() );
+                System.out.println( response.body());
+                if(!response.isSuccessful()){
+                    try{
+                        String bodyErr = response.errorBody().string();
+                        JSONObject bodyObj = new JSONObject( bodyErr);
+                        String msg=bodyObj.get("msg").toString();
+                        cf.completeExceptionally(new RuntimeException(msg));
+                    }catch(IOException io){
+                        io.getMessage();
+                    } catch (JSONException e) {
+                        Log.d("ERR",e.getMessage());
+                        throw new RuntimeException(e);
+                    }
+                }
+                String responsePrueba = response.body();
+                cf.complete(responsePrueba);
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                System.out.println( "Error en retrofit ------------------------------------" );
+                t.getMessage();
+                cf.completeExceptionally(t);
+            }
+        });
+        return cf;
+    }
+
+    public static CompletableFuture<Data[]> getData(Data data){
+
+        //Peticion a la web para guardar datos en BD
+        Call<Data[]>getDataRequest = getServiceKeychest().getData(data);
+        CompletableFuture<Data[]> cf = new CompletableFuture<>();
+        getDataRequest.enqueue(new Callback<Data[]>() {
+            @Override
+            public void onResponse(Call<Data[]> call, Response<Data[]> response) {
+                System.out.println(call.request());
+                System.out.println( "headers----------------------------------");
+                System.out.println( response.headers().toString() );
+                System.out.println( "message----------------------------------");
+                System.out.println( response.message() );
+                System.out.println( response.body());
+                if(!response.isSuccessful()){
+                    try{
+                        String bodyErr = response.errorBody().string();
+                        JSONObject bodyObj = new JSONObject( bodyErr);
+                        String msg=bodyObj.get("msg").toString();
+                        cf.completeExceptionally(new RuntimeException(msg));
+                    }catch(IOException io){
+                        io.getMessage();
+                    } catch (JSONException e) {
+                        Log.d("ERR",e.getMessage());
+                        throw new RuntimeException(e);
+                    }
+                }
+                Data[] responsePrueba = response.body();
+                cf.complete(responsePrueba);
+            }
+
+            @Override
+            public void onFailure(Call<Data[]> call, Throwable t) {
+                System.out.println( "Error en retrofit ------------------------------------" );
+                t.getMessage();
+                cf.completeExceptionally(t);
+            }
+        });
+        return cf;
+    }
+
+    public static CompletableFuture<String> deleteData(Data data){
+
+        //Peticion a la web para guardar datos en BD
+        Call<String>getDataRequest = getServiceKeychest().deleteData(data);
+        CompletableFuture<String> cf = new CompletableFuture<>();
+        getDataRequest.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                System.out.println(call.request());
+                System.out.println( "headers----------------------------------");
+                System.out.println( response.headers().toString() );
+                System.out.println( "message----------------------------------");
+                System.out.println( response.message() );
+                System.out.println( response.body());
+                if(!response.isSuccessful()){
+                    try{
+                        String bodyErr = response.errorBody().string();
+                        JSONObject bodyObj = new JSONObject( bodyErr);
+                        String msg=bodyObj.get("msg").toString();
+                        cf.completeExceptionally(new RuntimeException(msg));
+                    }catch(IOException io){
+                        io.getMessage();
+                    } catch (JSONException e) {
+                        Log.d("ERR",e.getMessage());
+                        throw new RuntimeException(e);
+                    }
+                }
+                String responsePrueba = response.body();
+                cf.complete(responsePrueba);
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                System.out.println( "Error en retrofit ------------------------------------" );
+                t.getMessage();
+                cf.completeExceptionally(t);
+            }
+        });
+        return cf;
+    }
+
+    public static CompletableFuture<String> updateData(Data data){
+
+        //Peticion a la web para guardar datos en BD
+        Call<String>getDataRequest = getServiceKeychest().updateData(data);
+        CompletableFuture<String> cf = new CompletableFuture<>();
+        getDataRequest.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 System.out.println(call.request());

@@ -16,6 +16,15 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".RecoveryAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DataActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DataListActivity"
+            android:exported="false" />
+        <activity
             android:name=".CreateDataActivity"
             android:exported="false" />
         <activity

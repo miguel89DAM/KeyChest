@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
+        style="@style/recyclerStyle"
+        android:layout_width="wrap_content"
+        android:layout_weight="2"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtDataListName"
+        android:padding="16dp"
+        android:layout_margin="16dp"
+        android:fontFamily="@font/font"
+        android:hint="@string/nameDataView"/>
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="16dp"
+        android:id="@+id/fabEditData"
+        android:tooltipText="@string/revealPassword"
+        android:textSize="14sp"
+        android:background="@drawable/btnshape"
+        android:backgroundTint="@color/edit"
+        android:src="@drawable/baseline_remove_red_eye_24"
+        android:contentDescription="@string/viewData" />
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="16dp"
+        android:id="@+id/fabDeleteData"
+        android:tooltipText="@string/deleteData"
+        android:textSize="14sp"
+        android:background="@drawable/btnshape"
+        android:backgroundTint="@color/delete"
+        android:src="@drawable/baseline_delete_24"
+        android:contentDescription="@string/deleteData" />
+
+
+</LinearLayout>

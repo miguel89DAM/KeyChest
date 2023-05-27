@@ -3,14 +3,11 @@ package rubioclemente.miguelangel.keychest;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
-
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Parcelable;
-import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -20,14 +17,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
-
-import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
+import rubioclemente.miguelangel.keychest.apiservices.ConexionRetrofit;
+import rubioclemente.miguelangel.keychest.model.Categories;
+import rubioclemente.miguelangel.keychest.model.Category;
+import rubioclemente.miguelangel.keychest.model.Data;
+import rubioclemente.miguelangel.keychest.model.User;
 
 public class CreateDataActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    Toolbar menu;
+    private Toolbar menu;
     private Spinner spinnerCategory;
     private EditText txtNameData,txtDescriptionData,txtPasswordData;
     private Button btnDataSubmit,btnRandomPassword;

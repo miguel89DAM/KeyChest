@@ -10,6 +10,10 @@
     <color name="primary">#02EEE2</color>
     <color name="secondary">#77FFB0</color>
     <color name="topBar">#1E88E4</color>
-    <color name="buttons">#FBCF4B</color>
+    <color name="buttons">#F4CB64</color>
     <color name="toolbar">#9219FFFF</color>
+    <color name="delete">#F68D86</color>
+    <color name="submit">#8EC876</color>
+    <color name="edit">#20CCEA</color>
+    <color name="contentCopy">#DCDDDD</color>
 </resources>

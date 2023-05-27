@@ -6,26 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:background="@drawable/gradientbackground">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/menu"
-        android:layout_width="match_parent"
-        style="@style/ToolBarStyle"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="end"
-            android:src="@drawable/iconokeychestblack"/>
-    </androidx.appcompat.widget.Toolbar>
+    <include layout="@layout/app_toolbar"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCategories"
         style="@style/recyclerStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/menu"
+        app:layout_constraintTop_toBottomOf="@+id/appbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/fabInsertData"/>

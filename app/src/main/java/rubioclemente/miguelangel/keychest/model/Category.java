@@ -1,4 +1,4 @@
-package rubioclemente.miguelangel.keychest;
+package rubioclemente.miguelangel.keychest.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

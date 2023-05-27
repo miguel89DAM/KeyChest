@@ -11,12 +11,18 @@
     <string name="NotRegister">Don\'t have an account?</string>
     <string name="MessageToRegister">Please check your email to verify your account</string>
     <string name="newInput">New</string>
-    <string name="categorySpinner">Select category</string>
+    <string name="categorySpinner">Select category:</string>
     <string name="nameDataView">Name:</string>
+    <string name="category">Category:</string>
     <string name="nameDataDescriptionView">Description:</string>
     <string name="passwordDataView">Password:</string>
     <string name="sendData">SUBMIT</string>
     <string name="genPassword">AUTOGEN</string>
     <string name="revealPassword">REVEAL</string>
     <string name="hidePassword">HIDE</string>
+    <string name="deleteData">DELETE</string>
+    <string name="modifyData">MODIFY</string>
+    <string name="viewData">VIEW</string>
+    <string name="titleRecover">Account recovery</string>
+    <string name="sendEmail">If you don\'t receive email verification, press here!!</string>
 </resources>

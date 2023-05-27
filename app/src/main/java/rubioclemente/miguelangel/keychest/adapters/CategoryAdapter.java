@@ -1,17 +1,20 @@
-package rubioclemente.miguelangel.keychest;
+package rubioclemente.miguelangel.keychest.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolderCategory> {
+import rubioclemente.miguelangel.keychest.R;
+import rubioclemente.miguelangel.keychest.model.Category;
 
-    private Category [] categories;
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolderCategory> implements View.OnClickListener {
+
+    private Category[] categories;
     private TextView txtCategoryName, txtnumDataUser;
+    private View.OnClickListener listener;
 
     public CategoryAdapter(Category[] categories){
         this.categories=categories;
@@ -20,6 +23,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public ViewHolderCategory onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_categories,parent,false);
+        view.setOnClickListener(this);
         return new ViewHolderCategory(view);
     }
 
@@ -31,6 +35,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public int getItemCount() {
         return categories.length;
+    }
+
+
+    public void setOnclickListener(View.OnClickListener listener){
+        this.listener=listener;
+    }
+    @Override
+    public void onClick(View v) {
+        if(listener !=null){
+            listener.onClick(v);
+        }
     }
 
     public class ViewHolderCategory extends RecyclerView.ViewHolder {

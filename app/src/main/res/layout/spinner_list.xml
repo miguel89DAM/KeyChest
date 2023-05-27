@@ -1,7 +1,9 @@
 <TextView
-    style="@style/labelStyle"
+    style="@style/normalTextStyle"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/txtItemCategory"
     android:layout_width="match_parent"
     android:layout_height="48dp"
+    android:layout_margin="16dp"
+    android:gravity="center"
     android:textColor="@android:color/black"/>

@@ -11,19 +11,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.concurrent.CompletableFuture;
+import rubioclemente.miguelangel.keychest.apiservices.ConexionRetrofit;
+import rubioclemente.miguelangel.keychest.model.User;
 
 public class LoginActivity extends AppCompatActivity {
 
+    EditText txtEmail,txtPsswd;
+    Button btnSignUp,btnSignIn,btnForgotPswd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        EditText txtEmail = (EditText) findViewById(R.id.userId);
-        EditText txtPsswd = (EditText) findViewById(R.id.userPassword);
-        TextView txtSignUp = (TextView)findViewById(R.id.txtSignUp);
-        Button btnSignIn = (Button) findViewById(R.id.btnSignIn);
+        txtEmail = (EditText) findViewById(R.id.userId);
+        txtPsswd = (EditText) findViewById(R.id.userPassword);
+        btnSignUp = (Button)findViewById(R.id.btnSignUp);
+        btnSignIn = (Button) findViewById(R.id.btnSignIn);
+        btnForgotPswd = (Button)findViewById(R.id.btnForgotPswd);
         btnSignIn.setOnClickListener((View v)->{
             //Chequear que los campos no están vacíos
             if(Utilities.validarDatos(txtEmail,txtPsswd)){
@@ -49,10 +53,17 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         //Evento que gestiona el alta de usuarios, lanza la activity SignInActivity
-        txtSignUp.setOnClickListener((View v)->{
+        btnSignUp.setOnClickListener((View v)->{
             Intent i = new Intent(getApplicationContext(), SignUpActivity.class);
             startActivity(i);
         });
+
+        btnForgotPswd.setOnClickListener((View v)->{
+            Intent i = new Intent(getApplicationContext(), RecoveryAccountActivity.class);
+            startActivity(i);
+        });
+
+
     }
 
 
