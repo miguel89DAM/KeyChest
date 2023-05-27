@@ -15,7 +15,12 @@ import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +34,10 @@ public class DataListActivity extends AppCompatActivity {
     private Toolbar menu;
     private RecyclerView recyclerData;
     private ArrayList<Data> dataUser;
+    private TextView txtTitleCategory;
+    private FloatingActionButton fabInsertData;
+
+    private Intent intenNewData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +45,15 @@ public class DataListActivity extends AppCompatActivity {
         //Instancia Menu
         menu = (Toolbar) findViewById(R.id.menu);
         setSupportActionBar(menu);
-
+        //Instancia boton flotante para añadir datos
+        fabInsertData= findViewById(R.id.fabInsertData);
+        txtTitleCategory=(TextView)findViewById(R.id.txtTitleCategory);
         recyclerData = (RecyclerView)findViewById(R.id.recyclerData);
         Data data =getIntent().getParcelableExtra("DATA");
         Categories categories=getIntent().getParcelableExtra("CATEGORIES");
+        txtTitleCategory.setText(data.getCategory().getName());
+        //Intent que pasa la información del usuario y categorias para insertar datos de la app en BD
+        intenNewData = new Intent(getApplicationContext(),CreateDataActivity.class);
         Handler handler = new Handler(Looper.getMainLooper());
         CompletableFuture<Data[]> cf = ConexionRetrofit.getData(data);
         //Si la respuesta es incorrecta enviamos un mensaje con el error al usuario y volvemos al loginActivity
@@ -60,13 +74,19 @@ public class DataListActivity extends AppCompatActivity {
                 recyclerData.setLayoutManager(new LinearLayoutManager(this));
                 DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerData.getContext(), LinearLayoutManager.VERTICAL);
                 recyclerData.addItemDecoration(mDividerItemDecoration);
-                //recyclerData.setHasFixedSize(true);
                 recyclerData.setAdapter(dataAdapter);
                 dataAdapter.notifyDataSetChanged();
 
             }
             return userData;
         },handler::post);
+
+        //Evento onclick que lanza la Activity CreateDataActivity para añadir registros del usuario
+        fabInsertData.setOnClickListener((View v) ->{
+            intenNewData.putExtra("USER",data.getUser());
+            intenNewData.putExtra("CATEGORY",data.getCategory());
+            startActivity(intenNewData);
+        });
     }
 
     @SuppressLint("RestrictedApi")

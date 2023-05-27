@@ -6,32 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:background="@drawable/gradientbackground">
-    <include layout="@layout/app_toolbar"/>
-
-
+    <include
+        android:id="@+id/appbar"
+        layout="@layout/app_toolbar"/>
+    <TextView
+        style="@style/TitleTextStyle"
+        android:id="@+id/txtTitleCategories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title categories"
+        android:text="@string/categories"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/recyclerCategories"
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCategories"
         style="@style/recyclerStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/appbar"
+        app:layout_constraintTop_toBottomOf="@id/txtTitleCategories"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/fabInsertData"/>
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerCategories"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:backgroundTint="@color/buttons"
-        app:fabCustomSize="56dp"
-        app:srcCompat="@drawable/baseline_add_24"
-        android:id="@+id/fabInsertData"
-        android:layout_width="wrap_content"
-        android:layout_height="419dp"
-        android:layout_gravity="center"
-        android:layout_margin="16dp"
-        android:contentDescription="@string/newInput" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

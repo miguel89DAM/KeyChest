@@ -30,24 +30,18 @@ import rubioclemente.miguelangel.keychest.model.User;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerCategories;
-    private FloatingActionButton fabInsertData;
     private Toolbar menu;
     private User user;
     private Handler handler;
     private CompletableFuture<Category[]> cf;
-    private Intent intenNewData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Intent que pasa la información del usuario y categorias para insertar datos de la app en BD
-        intenNewData = new Intent(getApplicationContext(),CreateDataActivity.class);
         //Instancia Menu
         menu = (Toolbar) findViewById(R.id.menu);
         setSupportActionBar(menu);
 
-        //Instancia boton flotante para añadir datos
-        fabInsertData= findViewById(R.id.fabInsertData);
         //Instancia del recyclerview que muestra las categorias
         recyclerCategories=(RecyclerView)findViewById(R.id.recyclerCategories);
         user =getIntent().getParcelableExtra("USER");
@@ -56,12 +50,6 @@ public class MainActivity extends AppCompatActivity {
         //Si la respuesta es incorrecta enviamos un mensaje con el error al usuario y volvemos al loginActivity
         getCategoriesRequest();
 
-        //Evento onclick que lanza la Activity CreateDataActivity para añadir registros del usuario
-        fabInsertData.setOnClickListener((View v) ->{
-
-            intenNewData.putExtra("USER",user);
-            startActivity(intenNewData);
-        });
     }
 
     @Override
@@ -87,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
             if(categories != null){
                 //Instanciamos categorias para pasarlo por intent en la creación de nuevos registros
                 Categories categories1 =new Categories(categories);
-                intenNewData.putExtra("CATEGORIES",categories1);
                 CategoryAdapter categoryAdapter = new CategoryAdapter(categories);
                 recyclerCategories.setLayoutManager(new LinearLayoutManager(this));
                 DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerCategories.getContext(), LinearLayoutManager.VERTICAL);

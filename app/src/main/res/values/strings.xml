@@ -23,6 +23,8 @@
     <string name="deleteData">DELETE</string>
     <string name="modifyData">MODIFY</string>
     <string name="viewData">VIEW</string>
+    <string name="copyData">COPY</string>
+    <string name="categories">Categories</string>
     <string name="titleRecover">Account recovery</string>
     <string name="sendEmail">If you don\'t receive email verification, press here!!</string>
 </resources>

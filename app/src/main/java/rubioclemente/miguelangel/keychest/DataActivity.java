@@ -35,7 +35,7 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private Toolbar menu;
     private EditText txtDataName,txtDataDescription,txtDataPassword;
-    private ImageButton fabChangeData, fabRevealData,fabCopyData;
+    private ImageButton fabChangeData, fabRevealData,fabCopyData,btnGeneratePassword;
     private Spinner spinnerCategory;
     private Data data;
     private Categories categories;
@@ -76,12 +76,12 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
         fabChangeData =(ImageButton) findViewById(R.id.fabChangeData);
         fabRevealData =(ImageButton) findViewById(R.id.fabRevealData);
         fabCopyData =(ImageButton) findViewById(R.id.fabCopyData);
+        btnGeneratePassword=(ImageButton)findViewById(R.id.btnGeneratePassword);
 
         //Seteo de datos en campos
         txtDataName.setText(data.getName());
         txtDataDescription.setText(data.getDescription());
         txtDataPassword.setText(data.getDataPassword());
-        fabChangeData.setEnabled(false);
 
         //Listener para mostrar u ocultar contraseña
         fabRevealData.setOnClickListener((View v)->{
@@ -97,6 +97,10 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
                 txtDataPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
 
             }
+        });
+        //Listener generacion de password aleatoria
+        btnGeneratePassword.setOnClickListener((View v)->{
+            txtDataPassword.setText(Utilities.randomText());
         });
         //Listener para copiar datos al portapapeles
         fabCopyData.setOnClickListener((View v)->{
@@ -153,7 +157,8 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
                 txtDataDescription.setEnabled(true);
                 txtDataPassword.setEnabled(true);
                 spinnerCategory.setEnabled(true);
-                fabChangeData.setEnabled(true);
+                fabChangeData.setVisibility(View.VISIBLE);
+                btnGeneratePassword.setVisibility(View.VISIBLE);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

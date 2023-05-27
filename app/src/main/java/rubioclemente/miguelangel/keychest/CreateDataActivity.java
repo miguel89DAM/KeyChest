@@ -25,14 +25,12 @@ import rubioclemente.miguelangel.keychest.model.Category;
 import rubioclemente.miguelangel.keychest.model.Data;
 import rubioclemente.miguelangel.keychest.model.User;
 
-public class CreateDataActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class CreateDataActivity extends AppCompatActivity {
     private Toolbar menu;
-    private Spinner spinnerCategory;
     private EditText txtNameData,txtDescriptionData,txtPasswordData;
-    private Button btnDataSubmit,btnRandomPassword;
-    private ImageButton btnRevealPassword;
+    private Button btnDataSubmit;
+    private ImageButton btnRevealPassword,btnRandomPassword;
     //Generamos objeto categoria que instanciaremos en la selección.
-    private Category c;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,21 +39,16 @@ public class CreateDataActivity extends AppCompatActivity implements AdapterView
         menu = (Toolbar) findViewById(R.id.menu);
         setSupportActionBar(menu);
         //Instancia del desplegable spinner que muestra las categorias
-        spinnerCategory = (Spinner) findViewById(R.id.category_spinner);
         txtNameData =(EditText)findViewById(R.id.txtNameData);
         txtDescriptionData =(EditText)findViewById(R.id.txtDescriptionData);
         txtPasswordData =(EditText)findViewById(R.id.txtPasswordData);
         btnDataSubmit =(Button)findViewById(R.id.btnDataSubmit);
-        btnRandomPassword =(Button)findViewById(R.id.btnRandomPassword);
+        btnRandomPassword =(ImageButton)findViewById(R.id.btnRandomPassword);
         btnRevealPassword =(ImageButton)findViewById(R.id.btnRevealPassword);
         //Recogemos usuario y categorias del parcelable procedente de MainActivity
         User user =getIntent().getParcelableExtra("USER");
-        Categories categories = getIntent().getParcelableExtra("CATEGORIES");
-        //Generamos el desplegable con las categorias de la app.
-        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(this, R.layout.spinner_list, categories.getCategories());
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_list);
-        spinnerCategory.setAdapter(spinnerArrayAdapter);
-        spinnerCategory.setOnItemSelectedListener(this);
+        Category category = getIntent().getParcelableExtra("CATEGORY");
+
         //Listener de envío de informacion al servidor
         btnDataSubmit.setOnClickListener((View v) ->{
             if(txtNameData.getText().toString().isEmpty()){
@@ -72,7 +65,7 @@ public class CreateDataActivity extends AppCompatActivity implements AdapterView
                     txtDescriptionData.getText().toString(),
                     txtPasswordData.getText().toString(),
                     user,
-                    c
+                    category
             );
             Handler handler = new Handler(Looper.getMainLooper());
             CompletableFuture<String> cf = ConexionRetrofit.createData(data);
@@ -86,10 +79,10 @@ public class CreateDataActivity extends AppCompatActivity implements AdapterView
                     Intent i = new Intent(getApplicationContext(),MainActivity.class);
                     i.putExtra("USER",user);
                     startActivity(i);
+                    finish();
                 }
                 return checkInsert;
             },handler::post);
-            System.out.println(c.getName());
         });
         //Listener generacion de password aleatoria
         btnRandomPassword.setOnClickListener((View v)->{
@@ -113,16 +106,4 @@ public class CreateDataActivity extends AppCompatActivity implements AdapterView
         });
     }
 
-    //Metodos implementados de spinner
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String item = parent.getItemAtPosition(position).toString();
-        c =(Category)parent.getItemAtPosition(position);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 }
