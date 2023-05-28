@@ -36,7 +36,7 @@ public class DataListActivity extends AppCompatActivity {
     private ArrayList<Data> dataUser;
     private TextView txtTitleCategory;
     private FloatingActionButton fabInsertData;
-
+    private Data data;
     private Intent intenNewData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class DataListActivity extends AppCompatActivity {
         fabInsertData= findViewById(R.id.fabInsertData);
         txtTitleCategory=(TextView)findViewById(R.id.txtTitleCategory);
         recyclerData = (RecyclerView)findViewById(R.id.recyclerData);
-        Data data =getIntent().getParcelableExtra("DATA");
+        data =getIntent().getParcelableExtra("DATA");
         Categories categories=getIntent().getParcelableExtra("CATEGORIES");
         txtTitleCategory.setText(data.getCategory().getName());
         //Intent que pasa la información del usuario y categorias para insertar datos de la app en BD
@@ -111,12 +111,15 @@ public class DataListActivity extends AppCompatActivity {
 
                 return true;
             case R.id.nav_settings:
-
+                    intenNewData = new Intent(getApplicationContext(),SettingsActivity.class);
+                    intenNewData.putExtra("USER",data.getUser());
+                    startActivity(intenNewData);
+                    finish();
                 return true;
             case R.id.nav_logout:
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-                finish();
+                    intenNewData = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intenNewData);
+                    finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -117,7 +117,9 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.nav_settings:
-
+                Intent i = new Intent(getApplicationContext(),SettingsActivity.class);
+                i.putExtra("USER",user);
+                startActivity(i);
                 return true;
             case R.id.nav_logout:
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);

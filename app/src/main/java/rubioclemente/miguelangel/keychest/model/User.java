@@ -9,7 +9,7 @@ public class User implements Parcelable {
 
     //ATRIBUTES
     private int id;
-    private String email, passwd,token;
+    private String email, passwd,token,tempPasswd;
 
 
     //CONSTRUCTORS
@@ -25,11 +25,18 @@ public class User implements Parcelable {
         this.passwd = password;
     }
 
+    public User(String token, String password,String tempPasswd){
+        this.token=token;
+        this.passwd = password;
+        this.tempPasswd=tempPasswd;
+    }
+
     protected User(Parcel in) {
         id = in.readInt();
         email = in.readString();
         passwd = in.readString();
         token = in.readString();
+        tempPasswd=in.readString();
     }
 
     //PARCELABLE
@@ -57,6 +64,7 @@ public class User implements Parcelable {
         dest.writeString(email);
         dest.writeString(passwd);
         dest.writeString(token);
+        dest.writeString(tempPasswd);
     }
 
     //GETTERS & SETTERS
@@ -91,6 +99,13 @@ public class User implements Parcelable {
         this.passwd = passwd;
     }
 
+    public String getTempPasswd() {
+        return tempPasswd;
+    }
+
+    public void setTempPasswd(String tempPasswd) {
+        this.tempPasswd = tempPasswd;
+    }
 
 
 
