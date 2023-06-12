@@ -28,5 +28,10 @@
     <string name="settings">Settings</string>
     <string name="change">CHANGE</string>
     <string name="titleRecover">Account recovery</string>
+    <string name="titleSignUpMessage">Confirm your account</string>
+    <string name="Aceptar">Accept</string>
+    <string name="Cancelar">Cancel</string>
     <string name="sendEmail">If you don\'t receive email verification, press here!!</string>
+    <string name="textResetAccount">Caution, this action will delete all information in your account. If you accept, we send you an email verification</string>
+    <string name="textConfirmAccount">We have sent an email to validate your account, click on the link to use the application.</string>
 </resources>

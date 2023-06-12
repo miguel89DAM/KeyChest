@@ -61,7 +61,7 @@
             android:orientation="horizontal">
             <EditText
                 style="@style/normalTextStyle"
-                android:layout_width="280dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtDataPassword"
                 android:drawableStart="@drawable/custom_password_icon"
@@ -74,7 +74,7 @@
                 android:background="@drawable/custom_input"
                 android:hint="@string/passwordDataView"/>
             <ImageButton
-                android:layout_width="60dp"
+                android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="16dp"
                 android:id="@+id/fabRevealData"

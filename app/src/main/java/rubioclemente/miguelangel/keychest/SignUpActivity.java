@@ -36,9 +36,9 @@ public class SignUpActivity extends AppCompatActivity {
         txtMessageRegister =(TextView)findViewById(R.id.txtMessageRegister);
         //Pop up informativo al usuario para que revise su email
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Hemos mandado un email para validar su cuenta, haga clic en el enlace para poder usar la aplicacion").setTitle("Confirmación de cuenta");
+        builder.setMessage(R.string.textConfirmAccount).setTitle(R.string.titleSignUpMessage);
 
-        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.Aceptar, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 Intent i = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(i);

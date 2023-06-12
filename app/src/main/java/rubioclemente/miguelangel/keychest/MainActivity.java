@@ -113,9 +113,6 @@ public class MainActivity extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
                 return true;
-            case R.id.nav_account:
-
-                return true;
             case R.id.nav_settings:
                 Intent i = new Intent(getApplicationContext(),SettingsActivity.class);
                 i.putExtra("USER",user);
@@ -123,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.nav_logout:
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
                 return true;

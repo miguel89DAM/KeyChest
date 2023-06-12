@@ -60,6 +60,9 @@ public class ConexionRetrofit {
         @POST("/users/newUser")
         Call<Integer> insertUser(@Body User user);
 
+        @POST("/users/updateUser")
+        Call<String> updateUser(@Body User user);
+
         @POST("/users/recovery")
         Call<String> recoveryUser(@Body User user);
         //GetCategories
@@ -160,6 +163,46 @@ public class ConexionRetrofit {
 
             @Override
             public void onFailure(Call<Integer> call, Throwable t) {
+                System.out.println( "Error en retrofit ------------------------------------" );
+                t.getMessage();
+                cf.completeExceptionally(t);
+            }
+        });
+        return cf;
+    }
+
+    public static CompletableFuture<String> updateUser(User user){
+
+        //Peticion a la web para actualizar el usuario
+        Call<String>userRequest = getServiceKeychest().updateUser(user);
+        CompletableFuture<String> cf = new CompletableFuture<>();
+        userRequest.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                System.out.println(call.request());
+                System.out.println( "headers----------------------------------");
+                System.out.println( response.headers().toString() );
+                System.out.println( "message----------------------------------");
+                System.out.println( response.message() );
+                System.out.println( response.body());
+                if(!response.isSuccessful()){
+                    try{
+                        String bodyErr = response.errorBody().string();
+                        JSONObject bodyObj = new JSONObject( bodyErr);
+                        String msg=bodyObj.get("msg").toString();
+                        cf.completeExceptionally(new RuntimeException(msg));
+                    }catch(IOException io){
+                        io.getMessage();
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                String checkInsert = response.body();
+                cf.complete(checkInsert);
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
                 System.out.println( "Error en retrofit ------------------------------------" );
                 t.getMessage();
                 cf.completeExceptionally(t);

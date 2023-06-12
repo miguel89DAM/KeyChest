@@ -107,9 +107,6 @@ public class DataListActivity extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
                 return true;
-            case R.id.nav_account:
-
-                return true;
             case R.id.nav_settings:
                     intenNewData = new Intent(getApplicationContext(),SettingsActivity.class);
                     intenNewData.putExtra("USER",data.getUser());
@@ -118,6 +115,7 @@ public class DataListActivity extends AppCompatActivity {
                 return true;
             case R.id.nav_logout:
                     intenNewData = new Intent(getApplicationContext(), LoginActivity.class);
+                    intenNewData.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intenNewData);
                     finish();
                 return true;

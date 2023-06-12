@@ -27,7 +27,7 @@ import rubioclemente.miguelangel.keychest.model.User;
 public class RecoveryAccountActivity extends AppCompatActivity {
 
     private EditText txtRecoverEmail,txtRecoverPassword,txtRecoverPasswordVerify;
-    private Button btnSubmitRecovery, btnResendEmail;
+    private Button btnSubmitRecovery;
 
     private Handler handler;
     private CompletableFuture<String> cf;
@@ -39,21 +39,20 @@ public class RecoveryAccountActivity extends AppCompatActivity {
         txtRecoverPassword = (EditText) findViewById(R.id.txtRecoverPassword);
         txtRecoverPasswordVerify = (EditText) findViewById(R.id.txtRecoverPasswordVerify);
         btnSubmitRecovery = (Button) findViewById(R.id.btnSubmitRecovery);
-        btnResendEmail = (Button) findViewById(R.id.btnResendEmail);
 
         handler = new Handler(Looper.getMainLooper());
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Atención, está acción eliminará toda información que tenga en su cuenta").setTitle("Reseteo de cuenta");
+        builder.setMessage(R.string.textResetAccount).setTitle(R.string.titleRecover);
 
-        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.Aceptar, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 cf = ConexionRetrofit.recoveryUser(new User(txtRecoverEmail.getText().toString(),txtRecoverPassword.getText().toString()));
                 recoveryAccountRequest();
             }
         });
 
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.Cancelar, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 return;
@@ -67,10 +66,6 @@ public class RecoveryAccountActivity extends AppCompatActivity {
             }
         });
 
-        btnResendEmail.setOnClickListener((View v)->{
-            if(Utilities.validarEmail(txtRecoverEmail)){
-            }
-        });
 
     }
     private void recoveryAccountRequest(){

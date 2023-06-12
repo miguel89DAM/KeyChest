@@ -3,8 +3,11 @@ package rubioclemente.miguelangel.keychest;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -13,7 +16,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import java.util.concurrent.CompletableFuture;
+
+import rubioclemente.miguelangel.keychest.apiservices.ConexionRetrofit;
 import rubioclemente.miguelangel.keychest.model.User;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -24,6 +31,8 @@ public class SettingsActivity extends AppCompatActivity {
     private LinearLayout lytChangeUserData;
     private Button btnEnableChangeUserData;
     private User user;
+    private Handler handler;
+    private CompletableFuture<String> cf;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +79,30 @@ public class SettingsActivity extends AppCompatActivity {
         //listener que envia los datos modificados al servidor
         fabChangeUserData.setOnClickListener((View v)->{
             if(Utilities.validarDatos(txtEmailUser,txtDataPassword,txtVerifyPassword)){
-                User u = new User(user.getToken(),user.getPasswd(),txtVerifyPassword.getText().toString());
+                User u = new User(user.getToken(),user.getEmail(),user.getPasswd(),txtVerifyPassword.getText().toString());
+                System.out.println(u.getEmail());
+                handler = new Handler(Looper.getMainLooper());
+                cf = ConexionRetrofit.updateUser(u);
+                updateUserRequest();
             }
         });
+    }
+
+    private void updateUserRequest(){
+        cf.exceptionally((Throwable t)->{
+            handler.post(()-> Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show());
+            return null;
+        }).thenApplyAsync((String resultSet)->{
+            //Si la respuesta es correcta derivamos al MainActivity
+            if(resultSet.equals("1") ){
+                System.out.println("Peticion realizada");
+                user.setPasswd(txtDataPassword.getText().toString());
+                Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                i.putExtra("USER", user);
+                startActivity(i);
+                finish();
+            }
+            return resultSet;
+        },handler::post);
     }
 }

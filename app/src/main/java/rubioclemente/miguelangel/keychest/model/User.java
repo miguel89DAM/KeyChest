@@ -25,8 +25,9 @@ public class User implements Parcelable {
         this.passwd = password;
     }
 
-    public User(String token, String password,String tempPasswd){
+    public User(String token,String email, String password,String tempPasswd){
         this.token=token;
+        this.email = email;
         this.passwd = password;
         this.tempPasswd=tempPasswd;
     }
