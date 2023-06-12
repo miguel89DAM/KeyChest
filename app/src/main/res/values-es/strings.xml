@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KeyChest</string>
+    <string name="signIn">SIGN IN</string>
+    <string name="signUp">SIGN UP</string>
+    <string name="userEmail">Email</string>
+    <string name="userPassword">Contraseña</string>
+    <string name="verifyPassword">Verifica tu contraseña</string>
+    <string name="forgotPassword">¿Olvidaste tu contraseña?</string>
+    <string name="txtRegister">Registro</string>
+    <string name="conditions">Aceptar terminos y condiciones</string>
+    <string name="NotRegister">¿No tienes una cuenta?</string>
+    <string name="MessageToRegister">Por favor comprueba tu email para verificar tu cuenta</string>
+    <string name="newInput">Nuevo</string>
+    <string name="categorySpinner">Selecciona categoria:</string>
+    <string name="nameDataView">Nombre:</string>
+    <string name="category">Categoria:</string>
+    <string name="nameDataDescriptionView">Descripcion:</string>
+    <string name="passwordDataView">Contraseña:</string>
+    <string name="sendData">Enviar</string>
+    <string name="genPassword">AUTOGEN</string>
+    <string name="revealPassword">REVELAR</string>
+    <string name="hidePassword">ESCONDER</string>
+    <string name="deleteData">ELIMINAR</string>
+    <string name="modifyData">MODIFICAR</string>
+    <string name="viewData">VER</string>
+    <string name="copyData">COPIAR</string>
+    <string name="categories">Categorias</string>
+    <string name="settings">Ajustes</string>
+    <string name="logout">Salir</string>
+    <string name="change">CAMBIAR</string>
+    <string name="titleRecover">Recupera tu cuenta</string>
+    <string name="titleSignUpMessage">Confirma tu cuenta</string>
+    <string name="Aceptar">Aceptar</string>
+    <string name="Cancelar">Cancelar</string>
+    <string name="sendEmail">Si no recibiste el email de verificacion, pulsa aquí!!</string>
+    <string name="textResetAccount">Precaución, esta acción eliminará todos tus datos. Si aceptas, enviaremos un email de verificacion a tu correo</string>
+    <string name="textConfirmAccount">Te hemos enviado un email para validar tu cuenta, pulsa en el link para poder usar la aplicación.</string>
+</resources>
